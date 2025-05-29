@@ -7,15 +7,13 @@ interface FeatureCardProps {
   icon: LucideIcon;
   title: string;
   description: string;
-  onClick?: () => void;
   gradient?: string;
 }
 
-const FeatureCard = ({ icon: Icon, title, description, onClick, gradient = "from-green-400 to-green-600" }: FeatureCardProps) => {
+const FeatureCard = ({ icon: Icon, title, description, gradient = "from-green-400 to-green-600" }: FeatureCardProps) => {
   return (
     <Card 
       className="group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-0 overflow-hidden"
-      onClick={onClick}
     >
       <div className={`h-2 bg-gradient-to-r ${gradient}`}></div>
       <CardContent className="p-6">
