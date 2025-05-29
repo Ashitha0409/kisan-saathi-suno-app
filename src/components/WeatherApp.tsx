@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Search, Cloud, CloudRain, Sun, Wind, Droplets } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 interface WeatherData {
   main: {
@@ -37,15 +37,15 @@ interface ForecastData {
   };
 }
 
-export function WeatherApp(): React.ReactElement {
-  const [city, setCity] = useState<string>('');
+export function WeatherApp() {
+  const [city, setCity] = useState('');
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [forecastData, setForecastData] = useState<ForecastData | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const apiKey = '22a9831f6513d7cbe2fa1148144d41c5';
 
-  const getWeatherData = async (city: string): Promise<void> => {
+  const getWeatherData = async (city: string) => {
     try {
       setLoading(true);
       setError(null);
@@ -80,22 +80,27 @@ export function WeatherApp(): React.ReactElement {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent): void => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (city.trim()) {
       getWeatherData(city);
     }
   };
 
-  const getWeatherIcon = (iconCode: string): React.ReactElement => {
-    if (iconCode.includes('01')) {
-      return <Sun className="h-10 w-10 text-yellow-500" />;
-    } else if (iconCode.includes('02') || iconCode.includes('03') || iconCode.includes('04')) {
-      return <Cloud className="h-10 w-10 text-blue-500" />;
-    } else if (iconCode.includes('09') || iconCode.includes('10') || iconCode.includes('11')) {
-      return <CloudRain className="h-10 w-10 text-blue-400" />;
-    } else {
-      return <Cloud className="h-10 w-10 text-gray-500" />;
+  const weatherIcon = (description: string) => {
+    switch (description.toLowerCase()) {
+      case 'clear sky':
+        return '☀️';
+      case 'few clouds':
+      case 'scattered clouds':
+      case 'broken clouds':
+        return '☁️';
+      case 'rain':
+      case 'light rain':
+      case 'moderate rain':
+        return '🌧️';
+      default:
+        return '☁️';
     }
   };
 
@@ -148,25 +153,55 @@ export function WeatherApp(): React.ReactElement {
 
       {weatherData && forecastData && (
         <div className="grid gap-6">
+          {/* Yesterday's Weather */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Yesterday</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col items-center">
+              <div className="text-5xl mb-2">
+                {weatherIcon(forecastData.list[0].weather[0].description)}
+              </div>
+              <div className="text-4xl font-bold">
+                {Math.round(forecastData.list[0].main.temp)}°C
+              </div>
+              <div className="text-gray-600">{forecastData.list[0].weather[0].description}</div>
+              <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <div className="text-gray-500">Humidity</div>
+                  <div className="font-semibold">
+                    {forecastData.list[0].main.humidity}%
+                  </div>
+                </div>
+                <div>
+                  <div className="text-gray-500">Wind</div>
+                  <div className="font-semibold">
+                    {Math.round(forecastData.list[0].wind.speed)} km/h
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Today's Weather */}
           <Card>
             <CardHeader>
               <CardTitle>Today</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col items-center">
-              {weatherData.weather[0].icon && getWeatherIcon(weatherData.weather[0].icon)}
+              <div className="text-5xl mb-2">
+                {weatherIcon(weatherData.weather[0].description)}
+              </div>
               <div className="text-4xl font-bold">
                 {Math.round(weatherData.main.temp)}°C
               </div>
               <div className="text-gray-600">{weatherData.weather[0].description}</div>
               <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <Droplets className="w-5 h-5 text-blue-500" />
                   <div className="text-gray-500">Humidity</div>
                   <div className="font-semibold">{weatherData.main.humidity}%</div>
                 </div>
                 <div>
-                  <Wind className="w-5 h-5 text-blue-500" />
                   <div className="text-gray-500">Wind</div>
                   <div className="font-semibold">
                     {Math.round(weatherData.wind.speed)} km/h
@@ -182,21 +217,21 @@ export function WeatherApp(): React.ReactElement {
               <CardTitle>Tomorrow</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col items-center">
-              {forecastData.list[8].weather[0].icon && getWeatherIcon(forecastData.list[8].weather[0].icon)}
+              <div className="text-5xl mb-2">
+                {weatherIcon(forecastData.list[8].weather[0].description)}
+              </div>
               <div className="text-4xl font-bold">
                 {Math.round(forecastData.list[8].main.temp)}°C
               </div>
               <div className="text-gray-600">{forecastData.list[8].weather[0].description}</div>
               <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <Droplets className="w-5 h-5 text-blue-500" />
                   <div className="text-gray-500">Humidity</div>
                   <div className="font-semibold">
                     {forecastData.list[8].main.humidity}%
                   </div>
                 </div>
                 <div>
-                  <Wind className="w-5 h-5 text-blue-500" />
                   <div className="text-gray-500">Wind</div>
                   <div className="font-semibold">
                     {Math.round(forecastData.list[8].wind.speed)} km/h
