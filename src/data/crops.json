@@ -1,0 +1,235 @@
+{
+  "crops": [
+    {
+      "id": 1,
+      "name": "Paddy",
+      "scientificName": "Oryza sativa",
+      "sowingTime": "June-July",
+      "idealSeason": "Kharif",
+      "fertilizers": {
+        "organic": [
+          { "name": "Cow dung", "units": "10-15 tons/acre" },
+          { "name": "Vermicompost", "units": "2-3 tons/acre" },
+          { "name": "Green manure", "units": "15-20 tons/acre" }
+        ],
+        "inorganic": [
+          { "name": "Urea", "units": "25-30 kg/acre" },
+          { "name": "DAP", "units": "20-25 kg/acre" },
+          { "name": "Potash", "units": "15-20 kg/acre" }
+        ]
+      },
+      "pestsDiseases": [
+        { "name": "Blast", "severity": "High" },
+        { "name": "Brown spot", "severity": "Medium" },
+        { "name": "Rice stem borer", "severity": "High" }
+      ],
+      "weather": {
+        "temperature": "25-35°C",
+        "rainfall": "1000-1500 mm",
+        "soil": "Clayey loam"
+      },
+      "growthDuration": "120-150 days",
+      "yieldRange": "3-5 tonnes/acre",
+      "image": "rice.jpg",
+      "tipsHindi": "पानी की उचित मात्रा रखें। बीज रोपाई से 21 दिन बाद पहला उर्वरक दें। सींके बीज रोपाई के लिए उपयुक्त है।"
+    },
+    {
+      "id": 2,
+      "name": "Wheat",
+      "scientificName": "Triticum aestivum",
+      "sowingTime": "October-November",
+      "idealSeason": "Rabi",
+      "fertilizers": {
+        "organic": [
+          { "name": "Cow dung", "units": "15-20 tons/acre" },
+          { "name": "Vermicompost", "units": "4-5 tons/acre" },
+          { "name": "Green manure", "units": "12-15 tons/acre" }
+        ],
+        "inorganic": [
+          { "name": "Urea", "units": "20-25 kg/acre" },
+          { "name": "SSP", "units": "15-20 kg/acre" },
+          { "name": "Potash", "units": "10-15 kg/acre" }
+        ]
+      },
+      "pestsDiseases": [
+        { "name": "Rust", "severity": "High" },
+        { "name": "Powdery mildew", "severity": "Medium" },
+        { "name": "Aphids", "severity": "Low" }
+      ],
+      "weather": {
+        "temperature": "15-25°C",
+        "rainfall": "400-600 mm",
+        "soil": "Loamy"
+      },
+      "growthDuration": "100-120 days",
+      "yieldRange": "2-4 tonnes/acre",
+      "image": "wheat.jpg",
+      "tipsHindi": "बीज रोपाई से 30 दिन बाद पहला उर्वरक देना चाहिए। रोध रोग के लिए नियमित निरीक्षण करना चाहिए।"
+    },
+    {
+      "id": 3,
+      "name": "Rice",
+      "scientificName": "Oryza sativa",
+      "sowingTime": "May-June",
+      "idealSeason": "Kharif",
+      "fertilizers": {
+        "organic": [
+          { "name": "Cow dung", "units": "20-25 tons/acre" },
+          { "name": "Vermicompost", "units": "5-6 tons/acre" },
+          { "name": "Green manure", "units": "15-20 tons/acre" }
+        ],
+        "inorganic": [
+          { "name": "Urea", "units": "25-30 kg/acre" },
+          { "name": "DAP", "units": "20-25 kg/acre" },
+          { "name": "MOP", "units": "15-20 kg/acre" }
+        ]
+      },
+      "pestsDiseases": [
+        { "name": "Blast", "severity": "High" },
+        { "name": "Bacterial blight", "severity": "Medium" },
+        { "name": "Leaf folder", "severity": "Low" }
+      ],
+      "weather": {
+        "temperature": "25-35°C",
+        "rainfall": "1000-1500 mm",
+        "soil": "Clayey"
+      },
+      "growthDuration": "120-150 days",
+      "yieldRange": "3-5 tonnes/acre",
+      "image": "rice.jpg",
+      "tipsHindi": "पानी की नियमित आपूर्ति जरूरी है। बीजों को रोध रोग से बचाने के लिए उचित उर्वरक देना चाहिए।"
+    },
+    {
+      "id": 4,
+      "name": "Maize",
+      "scientificName": "Zea mays",
+      "sowingTime": "June-July",
+      "idealSeason": "Kharif",
+      "fertilizers": {
+        "organic": [
+          { "name": "Cow dung", "units": "15-20 tons/acre" },
+          { "name": "Vermicompost", "units": "4-5 tons/acre" },
+          { "name": "Green manure", "units": "12-15 tons/acre" }
+        ],
+        "inorganic": [
+          { "name": "Urea", "units": "30-35 kg/acre" },
+          { "name": "DAP", "units": "25-30 kg/acre" },
+          { "name": "MOP", "units": "15-20 kg/acre" }
+        ]
+      },
+      "pestsDiseases": [
+        { "name": "Stem borer", "severity": "High" },
+        { "name": "Leaf blight", "severity": "Medium" },
+        { "name": "Downy mildew", "severity": "Low" }
+      ],
+      "weather": {
+        "temperature": "20-30°C",
+        "rainfall": "700-1000 mm",
+        "soil": "Sandy loam"
+      },
+      "growthDuration": "90-120 days",
+      "yieldRange": "3-4 tonnes/acre",
+      "image": "maize.jpg",
+      "tipsHindi": "पानी की नियमित आपूर्ति जरूरी है। बीजों को रोध रोग से बचाने के लिए उचित उर्वरक देना चाहिए।"
+    },
+    {
+      "id": 4,
+      "name": "Sugarcane",
+      "scientificName": "Saccharum officinarum",
+      "sowingTime": "February-March",
+      "idealSeason": "Rabi",
+      "fertilizers": {
+        "organic": [
+          { "name": "Cow dung", "units": "15-20 tons/acre" },
+          { "name": "Vermicompost", "units": "4-5 tons/acre" },
+          { "name": "Green manure", "units": "12-15 tons/acre" }
+        ],
+        "inorganic": [
+          { "name": "Urea", "units": "50-60 kg/acre" },
+          { "name": "DAP", "units": "40-50 kg/acre" },
+          { "name": "MOP", "units": "30-40 kg/acre" }
+        ]
+      },
+      "pestsDiseases": [
+        { "name": "Rust", "severity": "High" },
+        { "name": "Powdery mildew", "severity": "Medium" },
+        { "name": "Aphids", "severity": "Low" }
+      ],
+      "weather": {
+        "temperature": "25-35°C",
+        "rainfall": "1000-1500 mm",
+        "soil": "Clayey"
+      },
+      "growthDuration": "120-150 days",
+      "yieldRange": "3-5 tonnes/acre",
+      "image": "sugarcane.jpg",
+      "tipsHindi": "सींके बीज रोपाई के लिए उपयुक्त है। बीज रोपाई से 30 दिन बाद पहला उर्वरक देना चाहिए।"
+    },
+    {
+      "id": 5,
+      "name": "Cotton",
+      "scientificName": "Gossypium hirsutum",
+      "sowingTime": "March-April",
+      "idealSeason": "Kharif",
+      "fertilizers": {
+        "organic": [
+          { "name": "Cow dung", "units": "15-20 tons/acre" },
+          { "name": "Vermicompost", "units": "4-5 tons/acre" },
+          { "name": "Green manure", "units": "12-15 tons/acre" }
+        ],
+        "inorganic": [
+          { "name": "Urea", "units": "30-35 kg/acre" },
+          { "name": "DAP", "units": "25-30 kg/acre" },
+          { "name": "MOP", "units": "15-20 kg/acre" }
+        ]
+      },
+      "pestsDiseases": [
+        { "name": "Bollworm", "severity": "High" },
+        { "name": "Leaf curl virus", "severity": "Medium" },
+        { "name": "Whitefly", "severity": "Low" }
+      ],
+      "weather": {
+        "temperature": "25-35°C",
+        "rainfall": "600-800 mm",
+        "soil": "Black cotton soil"
+      },
+      "growthDuration": "150-180 days",
+      "yieldRange": "2-3 tonnes/acre",
+      "image": "cotton.jpg",
+      "tipsHindi": "बीज रोपाई से 30 दिन बाद पहला उर्वरक देना चाहिए। फसल को नियमित जांच करनी चाहिए।"
+    },
+    {
+      "id": 6,
+      "name": "Groundnut",
+      "scientificName": "Arachis hypogaea",
+      "sowingTime": "June-July",
+      "idealSeason": "Kharif",
+      "fertilizers": {
+        "organic": [
+          { "name": "Cow dung", "units": "15-20 tons/acre" },
+          { "name": "Vermicompost", "units": "4-5 tons/acre" },
+          { "name": "Green manure", "units": "12-15 tons/acre" }
+        ],
+        "inorganic": [
+          { "name": "Urea", "units": "15-20 kg/acre" },
+          { "name": "DAP", "units": "25-30 kg/acre" },
+          { "name": "MOP", "units": "10-15 kg/acre" }
+        ]
+      },
+      "pestsDiseases": [
+        { "name": "Leaf spot", "severity": "High" },
+        { "name": "Rust", "severity": "Medium" },
+        { "name": "Aphids", "severity": "Low" }
+      ],
+      "weather": {
+        "temperature": "20-30°C",
+        "rainfall": "700-1000 mm",
+        "soil": "Sandy loam"
+      },
+      "growthDuration": "100-120 days",
+      "yieldRange": "2-3 tonnes/acre",
+      "image": "groundnut.jpg",
+      "tipsHindi": "बीज रोपाई से 30 दिन बाद पहला उर्वरक देना चाहिए। फसल को नियमित जांच करनी चाहिए।"
+    }
+  ]
+}
