@@ -69,7 +69,7 @@ const Index = () => {
       title: "Government Schemes",
       description: "Access information about agricultural schemes, subsidies, and government benefits.",
       gradient: "from-indigo-400 to-indigo-600",
-      route: '/'
+      route: '/government-schemes'
     }
   ];
 
