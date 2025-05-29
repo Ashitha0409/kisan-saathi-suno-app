@@ -1,108 +1,193 @@
-
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Sprout, MapPin } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 
-const CropRecommendation = () => {
-  const [location, setLocation] = useState('');
-  const [soilType, setSoilType] = useState('');
-  const [season, setSeason] = useState('');
-  const [recommendations, setRecommendations] = useState<string[]>([]);
+interface FormData {
+  N: number;
+  P: number;
+  K: number;
+  temperature: number;
+  humidity: number;
+  ph: number;
+  rainfall: number;
+}
 
-  const handleRecommendation = () => {
-    // Mock recommendation logic
-    const mockRecommendations = ['Wheat', 'Rice', 'Maize', 'Tomato', 'Potato'];
-    setRecommendations(mockRecommendations.slice(0, 3));
+const API_URL = 'http://127.0.0.1:8000';
+
+export default function CropRecommendation() {
+  const [formData, setFormData] = useState<FormData>({
+    N: 0,
+    P: 0,
+    K: 0,
+    temperature: 0,
+    humidity: 0,
+    ph: 0,
+    rainfall: 0
+  });
+  const [prediction, setPrediction] = useState<string>('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>('');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: Number(value) || 0
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setPrediction('');
+
+    try {
+      const response = await fetch(`${API_URL}/predict`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to get prediction');
+      }
+
+      const data = await response.json();
+      setPrediction(data.recommended_crop);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+      console.error('Error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <Card className="shadow-lg border-0 bg-gradient-to-br from-green-50 to-blue-50">
-        <CardHeader className="text-center">
-          <div className="flex justify-center mb-4">
-            <div className="bg-gradient-to-r from-green-500 to-blue-500 p-3 rounded-full">
-              <Sprout className="h-8 w-8 text-white" />
+    <div className="container mx-auto p-4">
+      <Card className="max-w-2xl mx-auto p-6">
+        <h1 className="text-2xl font-bold mb-6 text-center">Crop Recommendation</h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium mb-1">Nitrogen (N)</label>
+              <input
+                type="number"
+                name="N"
+                value={formData.N}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
+                min="0"
+                step="0.01"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Phosphorus (P)</label>
+              <input
+                type="number"
+                name="P"
+                value={formData.P}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
+                min="0"
+                step="0.01"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Potassium (K)</label>
+              <input
+                type="number"
+                name="K"
+                value={formData.K}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
+                min="0"
+                step="0.01"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Temperature (°C)</label>
+              <input
+                type="number"
+                name="temperature"
+                value={formData.temperature}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
+                min="0"
+                step="0.01"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Humidity (%)</label>
+              <input
+                type="number"
+                name="humidity"
+                value={formData.humidity}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
+                min="0"
+                max="100"
+                step="0.01"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">pH</label>
+              <input
+                type="number"
+                name="ph"
+                value={formData.ph}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
+                min="0"
+                max="14"
+                step="0.1"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Rainfall (mm)</label>
+              <input
+                type="number"
+                name="rainfall"
+                value={formData.rainfall}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
+                min="0"
+                step="0.01"
+                required
+              />
             </div>
           </div>
-          <CardTitle className="text-3xl font-bold text-gray-800">Crop Recommendation</CardTitle>
-          <p className="text-gray-600">Get personalized crop suggestions based on your conditions</p>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="location" className="text-sm font-medium text-gray-700">Location</Label>
-                <div className="relative">
-                  <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                  <Input
-                    id="location"
-                    placeholder="Enter your district/state"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    className="pl-10"
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <Label htmlFor="soil" className="text-sm font-medium text-gray-700">Soil Type</Label>
-                <Select value={soilType} onValueChange={setSoilType}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select soil type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="clay">Clay Soil</SelectItem>
-                    <SelectItem value="sandy">Sandy Soil</SelectItem>
-                    <SelectItem value="loamy">Loamy Soil</SelectItem>
-                    <SelectItem value="silty">Silty Soil</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
 
-              <div>
-                <Label htmlFor="season" className="text-sm font-medium text-gray-700">Season</Label>
-                <Select value={season} onValueChange={setSeason}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select season" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="kharif">Kharif (Monsoon)</SelectItem>
-                    <SelectItem value="rabi">Rabi (Winter)</SelectItem>
-                    <SelectItem value="zaid">Zaid (Summer)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+          <button
+            type="submit"
+            className="w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 disabled:opacity-50"
+            disabled={loading}
+          >
+            {loading ? 'Getting Recommendation...' : 'Get Recommendation'}
+          </button>
+        </form>
 
-              <Button 
-                onClick={handleRecommendation}
-                className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800"
-              >
-                Get Recommendations
-              </Button>
-            </div>
-
-            {recommendations.length > 0 && (
-              <div className="bg-white rounded-lg p-6 shadow-sm border">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Recommended Crops</h3>
-                <div className="space-y-3">
-                  {recommendations.map((crop, index) => (
-                    <div key={index} className="flex items-center p-3 bg-green-50 rounded-lg border border-green-200">
-                      <Sprout className="h-5 w-5 text-green-600 mr-3" />
-                      <span className="font-medium text-gray-800">{crop}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+        {error && (
+          <div className="mt-4 p-4 bg-red-100 text-red-700 rounded">
+            {error}
           </div>
-        </CardContent>
+        )}
+
+        {prediction && (
+          <div className="mt-4 p-4 bg-green-100 text-green-700 rounded">
+            <h2 className="font-bold">Recommended Crop:</h2>
+            <p className="text-lg">{prediction}</p>
+          </div>
+        )}
       </Card>
     </div>
   );
-};
-
-export default CropRecommendation;
+}
