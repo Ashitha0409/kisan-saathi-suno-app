@@ -15,6 +15,7 @@ import MarketPricesPage from "./pages/MarketPricesPage";
 import CropManagementPage from "./pages/CropManagementPage";
 import DiseaseDetectionPage from "./pages/DiseaseDetectionPage";
 import TutorialsPage from "./pages/TutorialsPage";
+import GovernmentSchemesPage from "./pages/GovernmentSchemesPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/crop-management" element={<CropManagementPage />} />
           <Route path="/disease-detection" element={<DiseaseDetectionPage />} />
           <Route path="/tutorials" element={<TutorialsPage />} />
+          <Route path="/government-schemes" element={<GovernmentSchemesPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

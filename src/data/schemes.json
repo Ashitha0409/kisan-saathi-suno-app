@@ -1,0 +1,92 @@
+{
+  "schemes": [
+    {
+      "id": 1,
+      "name": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+      "department": "Ministry of Agriculture & Farmers Welfare",
+      "category": "agriculture",
+      "emoji": "🌾",
+      "eligibility": "All landholding farmers' families with cultivable land, subject to certain exclusions.",
+      "benefits": "Direct income support of Rs. 6,000 per year to eligible farmer families, payable in three equal installments of Rs. 2,000 each.",
+      "applicationDeadline": "Ongoing",
+      "hindiSummary": "प्रधानमंत्री किसान सम्मान निधि योजना के अंतर्गत पात्र किसान परिवारों को प्रति वर्ष 6,000 रुपये की आय सहायता प्रदान की जाती है।"
+    },
+    {
+      "id": 2,
+      "name": "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
+      "department": "Ministry of Agriculture & Farmers Welfare",
+      "category": "insurance",
+      "emoji": "🛡️",
+      "eligibility": "All farmers including sharecroppers and tenant farmers growing notified crops in notified areas.",
+      "benefits": "Insurance coverage and financial support to farmers in case of crop failure due to natural calamities, pests & diseases.",
+      "applicationDeadline": "Seasonal (Kharif: July 31, Rabi: December 31)",
+      "hindiSummary": "प्रधानमंत्री फसल बीमा योजना किसानों को प्राकृतिक आपदाओं, कीटों और बीमारियों के कारण फसल विफलता की स्थिति में बीमा कवरेज और वित्तीय सहायता प्रदान करती है।"
+    },
+    {
+      "id": 3,
+      "name": "Kisan Credit Card (KCC)",
+      "department": "Ministry of Finance",
+      "category": "finance",
+      "emoji": "💰",
+      "eligibility": "All farmers, sharecroppers, tenant farmers, and individuals engaged in animal husbandry and fisheries.",
+      "benefits": "Access to short-term credit for cultivation, post-harvest expenses, and maintenance of farm assets. Interest subvention of 2% and prompt repayment incentive of 3%.",
+      "applicationDeadline": "Ongoing",
+      "hindiSummary": "किसान क्रेडिट कार्ड योजना किसानों को खेती, फसल कटाई के बाद के खर्चों और कृषि संपत्तियों के रखरखाव के लिए अल्पकालिक ऋण प्रदान करती है।"
+    },
+    {
+      "id": 4,
+      "name": "Soil Health Card Scheme",
+      "department": "Ministry of Agriculture & Farmers Welfare",
+      "category": "agriculture",
+      "emoji": "🌱",
+      "eligibility": "All farmers across India.",
+      "benefits": "Soil health card with crop-wise recommendations of nutrients and fertilizers to help farmers improve productivity through judicious use of inputs.",
+      "applicationDeadline": "Ongoing",
+      "hindiSummary": "मृदा स्वास्थ्य कार्ड योजना किसानों को फसल-वार पोषक तत्वों और उर्वरकों की सिफारिशों के साथ मिट्टी स्वास्थ्य कार्ड प्रदान करती है।"
+    },
+    {
+      "id": 5,
+      "name": "Paramparagat Krishi Vikas Yojana (PKVY)",
+      "department": "Ministry of Agriculture & Farmers Welfare",
+      "category": "organic",
+      "emoji": "🍃",
+      "eligibility": "Farmers willing to adopt organic farming practices.",
+      "benefits": "Financial assistance for cluster formation, capacity building, and certification of organic produce. Marketing support for organic products.",
+      "applicationDeadline": "Ongoing",
+      "hindiSummary": "परंपरागत कृषि विकास योजना जैविक खेती अपनाने वाले किसानों को वित्तीय सहायता और जैविक उत्पादों के विपणन के लिए समर्थन प्रदान करती है।"
+    },
+    {
+      "id": 6,
+      "name": "National Mission for Sustainable Agriculture (NMSA)",
+      "department": "Ministry of Agriculture & Farmers Welfare",
+      "category": "sustainability",
+      "emoji": "♻️",
+      "eligibility": "All farmers focusing on sustainable agricultural practices.",
+      "benefits": "Promotion of integrated farming, appropriate soil health management, and synergizing resource conservation for enhanced agricultural productivity.",
+      "applicationDeadline": "Ongoing",
+      "hindiSummary": "राष्ट्रीय टिकाऊ कृषि मिशन टिकाऊ कृषि प्रथाओं पर ध्यान केंद्रित करने वाले किसानों को एकीकृत खेती और उचित मिट्टी स्वास्थ्य प्रबंधन को बढ़ावा देता है।"
+    },
+    {
+      "id": 7,
+      "name": "Pradhan Mantri Krishi Sinchayee Yojana (PMKSY)",
+      "department": "Ministry of Agriculture & Farmers Welfare",
+      "category": "irrigation",
+      "emoji": "💧",
+      "eligibility": "All farmers seeking irrigation facilities.",
+      "benefits": "Convergence of investments in irrigation, expand cultivable area under irrigation, improve water use efficiency, and enhance adoption of precision irrigation.",
+      "applicationDeadline": "Ongoing",
+      "hindiSummary": "प्रधानमंत्री कृषि सिंचाई योजना सिंचाई सुविधाओं की मांग करने वाले किसानों को सिंचाई में निवेश, सिंचाई के तहत खेती योग्य क्षेत्र का विस्तार और जल उपयोग दक्षता में सुधार करने के लिए सहायता प्रदान करती है।"
+    },
+    {
+      "id": 8,
+      "name": "Agricultural Technology Management Agency (ATMA)",
+      "department": "Ministry of Agriculture & Farmers Welfare",
+      "category": "technology",
+      "emoji": "🔬",
+      "eligibility": "All farmers seeking agricultural technology and extension services.",
+      "benefits": "Decentralized extension system to make extension farmer-driven and farmer-accountable. Provides training and technology demonstrations.",
+      "applicationDeadline": "Ongoing",
+      "hindiSummary": "कृषि प्रौद्योगिकी प्रबंधन एजेंसी किसानों को कृषि प्रौद्योगिकी और विस्तार सेवाएं प्रदान करती है, जिसमें प्रशिक्षण और प्रौद्योगिकी प्रदर्शन शामिल हैं।"
+    }
+  ]
+}
