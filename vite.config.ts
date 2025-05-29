@@ -1,13 +1,18 @@
+/// <reference types="node" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import path from "path";
+import * as path from "path";
 import { componentTagger } from "lovable-tagger";
+import { fileURLToPath } from 'url';
+
+// Define __dirname equivalent for ESM
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
+export default defineConfig(({ mode }: { mode: string }) => ({
   server: {
     host: "::",
-    port: 8080,
+    port: 5173,
   },
   plugins: [
     react(),
