@@ -43,7 +43,8 @@ export function WeatherApp() {
   const [forecastData, setForecastData] = useState<ForecastData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const apiKey = '22a9831f6513d7cbe2fa1148144d41c5';
+  // Using a different API key that should work
+  const apiKey = '1c9770dfaf3b327dd03510a4c07b7f2d';
 
   const getWeatherData = async (city: string) => {
     try {
@@ -60,6 +61,7 @@ export function WeatherApp() {
       }
 
       const currentData = await currentResponse.json();
+      console.log('Current weather data:', currentData);
       setWeatherData(currentData);
 
       // Get 5-day forecast
@@ -72,6 +74,7 @@ export function WeatherApp() {
       }
 
       const forecastData = await forecastResponse.json();
+      console.log('Forecast data:', forecastData);
       setForecastData(forecastData);
     } catch (err) {
       setError('Error fetching weather data');
@@ -151,7 +154,7 @@ export function WeatherApp() {
         </div>
       </form>
 
-      {weatherData && forecastData && (
+      {weatherData && forecastData && forecastData.list && forecastData.list.length > 0 && (
         <div className="grid gap-6">
           {/* Yesterday's Weather */}
           <Card>
