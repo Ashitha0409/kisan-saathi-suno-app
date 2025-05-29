@@ -13,7 +13,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import { CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ChevronDown, ChevronUp, Plus } from 'lucide-react';
+import { ChevronDown, ChevronUp, Plus, Leaf, Database, MapPin } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import SmartCropRecommendation from '@/components/SmartCropRecommendation';
+import LocationBasedCropRecommendation from '@/components/LocationBasedCropRecommendation';
 
 // Extract the crops array from the imported data
 const cropsDataArray = cropsData.crops;
@@ -159,8 +162,25 @@ const CropManagementPage = () => {
           <h1 className="text-3xl font-bold text-green-800">Crop Management</h1>
           <Button onClick={() => setIsDialogOpen(true)}>Add New Crop</Button>
         </div>
-
-        {crops.length > 0 ? (
+        
+        <Tabs defaultValue="crops" className="w-full mb-8">
+          <TabsList className="grid w-full grid-cols-3 mb-8">
+            <TabsTrigger value="crops" className="flex items-center gap-2">
+              <Database className="h-4 w-4" />
+              My Crops
+            </TabsTrigger>
+            <TabsTrigger value="recommendation" className="flex items-center gap-2">
+              <Leaf className="h-4 w-4" />
+              Smart Crop Recommendation
+            </TabsTrigger>
+            <TabsTrigger value="location" className="flex items-center gap-2">
+              <MapPin className="h-4 w-4" />
+              Location-based Recommendation
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="crops">
+            {crops.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {crops.map((crop) => (
               <Card key={crop.id} className="bg-white shadow-lg">
@@ -240,6 +260,16 @@ const CropManagementPage = () => {
             <p className="text-sm text-gray-400">Click the "Add New Crop" button to get started</p>
           </div>
         )}
+          </TabsContent>
+          
+          <TabsContent value="recommendation">
+            <SmartCropRecommendation />
+          </TabsContent>
+          
+          <TabsContent value="location">
+            <LocationBasedCropRecommendation />
+          </TabsContent>
+        </Tabs>
       </div>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
