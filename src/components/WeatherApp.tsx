@@ -43,41 +43,46 @@ export function WeatherApp() {
   const [forecastData, setForecastData] = useState<ForecastData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // Using a different API key that should work
-  const apiKey = '1c9770dfaf3b327dd03510a4c07b7f2d';
+
+  // OpenWeatherMap API key
+  const apiKey = '22a9831f6513d7cbe2fa1148144d41c5';
 
   const getWeatherData = async (city: string) => {
     try {
       setLoading(true);
       setError(null);
 
+      // Format city name to handle spaces and special characters
+      const formattedCity = encodeURIComponent(city.trim());
+
       // Get current weather
       const currentResponse = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=${formattedCity}&appid=${apiKey}&units=metric`
       );
       
       if (!currentResponse.ok) {
-        throw new Error('Failed to fetch current weather data');
+        const errorData = await currentResponse.json();
+        throw new Error(errorData.message || 'City not found. Please check the city name and try again.');
       }
 
       const currentData = await currentResponse.json();
-      console.log('Current weather data:', currentData);
       setWeatherData(currentData);
 
       // Get 5-day forecast
       const forecastResponse = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${formattedCity}&appid=${apiKey}&units=metric`
       );
       
       if (!forecastResponse.ok) {
-        throw new Error('Failed to fetch forecast data');
+        const errorData = await forecastResponse.json();
+        throw new Error(errorData.message || 'Failed to fetch forecast data');
       }
 
       const forecastData = await forecastResponse.json();
-      console.log('Forecast data:', forecastData);
       setForecastData(forecastData);
     } catch (err) {
-      setError('Error fetching weather data');
+      console.error('Weather API Error:', err);
+      setError(err instanceof Error ? err.message : 'Error fetching weather data. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -90,161 +95,99 @@ export function WeatherApp() {
     }
   };
 
-  const weatherIcon = (description: string) => {
-    switch (description.toLowerCase()) {
-      case 'clear sky':
-        return '☀️';
-      case 'few clouds':
-      case 'scattered clouds':
-      case 'broken clouds':
-        return '☁️';
-      case 'rain':
-      case 'light rain':
-      case 'moderate rain':
-        return '🌧️';
-      default:
-        return '☁️';
-    }
+  const getWeatherIcon = (iconCode: string) => {
+    return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
   };
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <p className="text-red-500 text-lg">{error}</p>
-        <button
-          onClick={() => setError(null)}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-        >
-          Try Again
-        </button>
-      </div>
-    );
-  }
-
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-800 mb-2">Weather Forecast</h2>
-        <p className="text-gray-600">Check weather for yesterday, today, and tomorrow</p>
-      </div>
+    <div className="container mx-auto p-4">
+      <Card className="max-w-4xl mx-auto">
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold text-center">Weather Forecast</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="flex gap-2 mb-6">
+            <input
+              type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              placeholder="Enter city name (e.g., London, Mumbai, New York)"
+              className="flex-1 p-2 border rounded"
+              required
+            />
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
+              disabled={loading}
+            >
+              {loading ? (
+                <span>Loading...</span>
+              ) : (
+                <Search className="h-5 w-5" />
+              )}
+            </button>
+          </form>
 
-      <form onSubmit={handleSubmit} className="mb-8">
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            placeholder="Enter city name"
-            className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button
-            type="submit"
-            className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-          >
-            <Search className="w-5 h-5" />
-          </button>
-        </div>
-      </form>
+          {error && (
+            <div className="bg-red-100 text-red-700 p-4 rounded mb-4">
+              {error}
+            </div>
+          )}
 
-      {weatherData && forecastData && forecastData.list && forecastData.list.length > 0 && (
-        <div className="grid gap-6">
-          {/* Yesterday's Weather */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Yesterday</CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-col items-center">
-              <div className="text-5xl mb-2">
-                {weatherIcon(forecastData.list[0].weather[0].description)}
-              </div>
-              <div className="text-4xl font-bold">
-                {Math.round(forecastData.list[0].main.temp)}°C
-              </div>
-              <div className="text-gray-600">{forecastData.list[0].weather[0].description}</div>
-              <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <div className="text-gray-500">Humidity</div>
-                  <div className="font-semibold">
-                    {forecastData.list[0].main.humidity}%
+          {weatherData && (
+            <div className="space-y-6">
+              <div className="bg-white rounded-lg p-6 shadow-sm">
+                <h2 className="text-2xl font-bold mb-4">{weatherData.name}</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-4xl font-bold">{Math.round(weatherData.main.temp)}°C</p>
+                    <p className="text-gray-600">{weatherData.weather[0].description}</p>
                   </div>
-                </div>
-                <div>
-                  <div className="text-gray-500">Wind</div>
-                  <div className="font-semibold">
-                    {Math.round(forecastData.list[0].wind.speed)} km/h
+                  <div>
+                    <img
+                      src={getWeatherIcon(weatherData.weather[0].icon)}
+                      alt={weatherData.weather[0].description}
+                      className="w-20 h-20"
+                    />
+                  </div>
+                  <div className="col-span-2">
+                    <p>Humidity: {weatherData.main.humidity}%</p>
+                    <p>Wind Speed: {weatherData.wind.speed} m/s</p>
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
 
-          {/* Today's Weather */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Today</CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-col items-center">
-              <div className="text-5xl mb-2">
-                {weatherIcon(weatherData.weather[0].description)}
-              </div>
-              <div className="text-4xl font-bold">
-                {Math.round(weatherData.main.temp)}°C
-              </div>
-              <div className="text-gray-600">{weatherData.weather[0].description}</div>
-              <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <div className="text-gray-500">Humidity</div>
-                  <div className="font-semibold">{weatherData.main.humidity}%</div>
-                </div>
-                <div>
-                  <div className="text-gray-500">Wind</div>
-                  <div className="font-semibold">
-                    {Math.round(weatherData.wind.speed)} km/h
+              {forecastData && (
+                <div className="mt-6">
+                  <h3 className="text-xl font-bold mb-4">5-Day Forecast</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    {forecastData.list
+                      .filter((item, index) => index % 8 === 0)
+                      .map((item, index) => (
+                        <div key={index} className="bg-white rounded-lg p-4 shadow-sm">
+                          <p className="font-semibold">
+                            {new Date(item.dt_txt).toLocaleDateString('en-US', {
+                              weekday: 'short',
+                              month: 'short',
+                              day: 'numeric',
+                            })}
+                          </p>
+                          <img
+                            src={getWeatherIcon(item.weather[0].icon)}
+                            alt={item.weather[0].description}
+                            className="w-12 h-12 mx-auto"
+                          />
+                          <p className="text-lg font-bold">{Math.round(item.main.temp)}°C</p>
+                          <p className="text-sm text-gray-600">{item.weather[0].description}</p>
+                        </div>
+                      ))}
                   </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Tomorrow's Weather */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Tomorrow</CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-col items-center">
-              <div className="text-5xl mb-2">
-                {weatherIcon(forecastData.list[8].weather[0].description)}
-              </div>
-              <div className="text-4xl font-bold">
-                {Math.round(forecastData.list[8].main.temp)}°C
-              </div>
-              <div className="text-gray-600">{forecastData.list[8].weather[0].description}</div>
-              <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <div className="text-gray-500">Humidity</div>
-                  <div className="font-semibold">
-                    {forecastData.list[8].main.humidity}%
-                  </div>
-                </div>
-                <div>
-                  <div className="text-gray-500">Wind</div>
-                  <div className="font-semibold">
-                    {Math.round(forecastData.list[8].wind.speed)} km/h
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
+              )}
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
