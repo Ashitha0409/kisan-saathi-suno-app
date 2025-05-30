@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,8 +9,6 @@ import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import CropRecommendationPage from "./pages/CropRecommendationPage";
 import WeatherPage from "./pages/WeatherPage";
-import ChatbotPage from "./pages/ChatbotPage";
-import MarketPricesPage from "./pages/MarketPricesPage";
 import CropManagementPage from "./pages/CropManagementPage";
 import DiseaseDetectionPage from "./pages/DiseaseDetectionPage";
 import TutorialsPage from "./pages/TutorialsPage";
@@ -33,8 +30,6 @@ const App = () => (
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/crop-recommendation" element={<CropRecommendationPage />} />
           <Route path="/weather" element={<WeatherPage />} />
-          <Route path="/chatbot" element={<ChatbotPage />} />
-          <Route path="/market-prices" element={<MarketPricesPage />} />
           <Route path="/crop-management" element={<CropManagementPage />} />
           <Route path="/disease-detection" element={<DiseaseDetectionPage />} />
           <Route path="/tutorials" element={<TutorialsPage />} />

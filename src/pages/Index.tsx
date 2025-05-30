@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -6,10 +5,9 @@ import FeatureCard from '@/components/FeatureCard';
 import { 
   Sprout, 
   Cloud, 
-  MessageSquare, 
-  BookOpen, 
   Search,
-  Youtube
+  Youtube,
+  BookOpen
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
@@ -32,16 +30,9 @@ const Index = () => {
     {
       icon: Search,
       title: "Disease Detection",
-      description: "Upload crop images to identify diseases and get treatment recommendations instantly.",
+      description: "Get instant disease identification and treatment recommendations for your crops.",
       gradient: "from-red-400 to-red-600",
       route: '/disease-detection'
-    },
-    {
-      icon: MessageSquare,
-      title: "Farming Assistant",
-      description: "Get instant answers to your farming questions from our AI-powered chatbot.",
-      gradient: "from-purple-400 to-purple-600",
-      route: '/chatbot'
     },
     {
       icon: Youtube,
@@ -56,13 +47,6 @@ const Index = () => {
       description: "Plan your farming activities with accurate weather forecasts and farming advisories.",
       gradient: "from-cyan-400 to-cyan-600",
       route: '/weather'
-    },
-    {
-      icon: Search,
-      title: "Market Prices",
-      description: "Check live vegetable and crop prices from major markets to plan your sales.",
-      gradient: "from-yellow-400 to-yellow-600",
-      route: '/market-prices'
     },
     {
       icon: BookOpen,
@@ -92,12 +76,12 @@ const Index = () => {
             Your Complete <span className="text-green-600">Farming Companion</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Empowering farmers with AI-driven insights, real-time weather updates, market prices, 
+            Empowering farmers with AI-driven insights, real-time weather updates, 
             and expert guidance to maximize crop yield and profitability.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
             <Link key={index} to={feature.route}>
               <FeatureCard

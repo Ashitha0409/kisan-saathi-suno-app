@@ -1,7 +1,7 @@
-
 import React from 'react';
 import Header from '@/components/Header';
 import { Link } from 'react-router-dom';
+import DiseaseDetection from '@/components/DiseaseDetection';
 
 const DiseaseDetectionPage = () => {
   return (
@@ -15,13 +15,7 @@ const DiseaseDetectionPage = () => {
           ← Back to Home
         </Link>
       </div>
-      <div className="max-w-4xl mx-auto p-6 text-center">
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">Disease Detection</h2>
-        <p className="text-gray-600 mb-8">Upload crop images for instant disease identification</p>
-        <div className="bg-gradient-to-r from-red-50 to-orange-50 p-8 rounded-lg">
-          <p className="text-lg text-gray-700">Coming Soon! Upload photos of your crops to get instant disease identification and treatment recommendations.</p>
-        </div>
-      </div>
+      <DiseaseDetection />
     </div>
   );
 };

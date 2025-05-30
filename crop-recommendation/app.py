@@ -23,8 +23,13 @@ app.add_middleware(
 )
 
 # Load the model and scaler
-model = joblib.load('models/crop_model.joblib')
-scaler = joblib.load('models/scaler.joblib')
+try:
+    model = joblib.load('models/crop_model.joblib')
+    scaler = joblib.load('models/scaler.joblib')
+except Exception as e:
+    print(f"Error loading model files: {str(e)}")
+    model = None
+    scaler = None
 
 class SoilData(BaseModel):
     N: float
@@ -41,6 +46,12 @@ def read_root():
 
 @app.post("/predict")
 async def get_prediction(data: SoilData):
+    if model is None or scaler is None:
+        raise HTTPException(
+            status_code=500,
+            detail="Model or scaler not loaded. Please check server logs."
+        )
+        
     try:
         # Convert input data to array
         input_data = np.array([[
@@ -61,4 +72,21 @@ async def get_prediction(data: SoilData):
         
         return {"recommended_crop": prediction[0]}
     except Exception as e:
+        print(f"Error in prediction: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/market-prices")
+async def get_market_prices():
+    try:
+        # Sample market price data - in a real app, this would come from a database
+        market_prices = [
+            {"crop": "Tomato", "price": "₹25", "unit": "per kg", "change": "+5%", "trending": "up"},
+            {"crop": "Onion", "price": "₹30", "unit": "per kg", "change": "-2%", "trending": "down"},
+            {"crop": "Potato", "price": "₹20", "unit": "per kg", "change": "+3%", "trending": "up"},
+            {"crop": "Rice", "price": "₹45", "unit": "per kg", "change": "0%", "trending": "stable"},
+            {"crop": "Wheat", "price": "₹25", "unit": "per kg", "change": "+1%", "trending": "up"}
+        ]
+        return market_prices
+    except Exception as e:
+        print(f"Error in get_market_prices: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
